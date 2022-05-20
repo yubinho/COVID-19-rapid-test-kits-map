@@ -12,8 +12,11 @@
                 width: 100%;
                 height: 90%;
             }
-            span{
+            #quantity{
                 color: red;
+            }
+            #index{
+                color: blue;
             }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>       
@@ -39,9 +42,10 @@
                     document.querySelector("#county").innerHTML += "<option value='"+counties[i]+"'>"+counties[i]+"</option>"
                 }
             }
-            // osm 
+            // osm
             var map;
             var markers = [];
+            // create map without markers
             function NewMap(){
                 // create Leaflet map and set coordinate
                 map = L.map('map').setView([22.7211, 120.3007], 14);
@@ -52,12 +56,14 @@
                     maxZoom: 18,
                 }).addTo(map);
             }
+            // call this function when option is selected
             function Select(){
                 $(document).ready(function() {
                     var selected = document.getElementById("county").value;
                     Search(selected)
                 });
             }
+            // search data and mark positions in the map 
             function Search(condition){   
                 if(markers.length != 0){
                     for(let i=0;i<markers.length;i++){
@@ -82,7 +88,8 @@
                         let latitude = cols[4];
                         let category = cols[6];
                         let quantity = cols[7];
-                        let content = ("藥局名稱:"+name+'<br\>'+"廠牌:"+category+" <span>數量:"+quantity+'</span><br\>'+"備註:"+cols[9]);
+                        let note = cols[9];
+                        let content = ("<span id ='index'>藥局名稱:</span>"+name+'<br\>'+"<span id ='index'>廠牌:</span>"+category+" <span id='quantity'>數量:"+quantity+'</span><br\>'+"<span id ='index'>備註:</span>"+note);
                         if(name != undefined){
                             if(name.startsWith(condition)){
                                 var marker = L.marker([latitude, longitude]);
@@ -91,8 +98,7 @@
                                 marker.addTo(map);
                             }
                         }
-                    }
-                    
+                    }                
                 })
             }
             NewMap();
