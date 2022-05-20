@@ -42,9 +42,10 @@
                     document.querySelector("#county").innerHTML += "<option value='"+counties[i]+"'>"+counties[i]+"</option>"
                 }
             }
-            // osm 
+            // osm
             var map;
             var markers = [];
+            // create map without markers
             function NewMap(){
                 // create Leaflet map and set coordinate
                 map = L.map('map').setView([22.7211, 120.3007], 14);
@@ -55,12 +56,14 @@
                     maxZoom: 18,
                 }).addTo(map);
             }
+            // call this function when option is selected
             function Select(){
                 $(document).ready(function() {
                     var selected = document.getElementById("county").value;
                     Search(selected)
                 });
             }
+            // search data and mark positions in the map 
             function Search(condition){   
                 if(markers.length != 0){
                     for(let i=0;i<markers.length;i++){
