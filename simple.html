@@ -58,16 +58,17 @@
                 //var rows = data.split(/\r?\n/);
                 for(let i=1;i<rows.length;i++){
                     let cols = rows[i].split(",");
-                    let name = cols[2];
+                    let name = cols[1];
+                    let address = cols[2]
                     let longitude = cols[3];
                     let latitude = cols[4];
                     let category = cols[6];
                     let quantity = cols[7];
                     let time = cols[8];
                     let note = cols[9];
-                    let content = ("<span id ='index'>藥局名稱:</span>"+name+'<br\>'+"<span id ='index'>廠牌:</span>"+category+" <span id='quantity'>數量:"+quantity+"</span><br\>"+" <span id='index'>來源時間:</span>"+time+"<br\>"+"<span id ='index'>備註:</span>"+note);
-                    if(name != undefined){
-                        if(name.startsWith("高雄市")){
+                    let content = "<span id ='index'>藥局名稱:</span>"+name+"<br\>"+"<span id ='index'>地址:</span>"+address+"<br\>"+"<span id ='index'>廠牌:</span>"+category+" <span id='quantity'>數量:"+quantity+"</span><br\>"+" <span id='index'>來源時間:</span>"+time+"<br\>"+"<span id ='index'>備註:</span>"+note;
+                    if(address != undefined){
+                        if(address.startsWith("高雄市")){
                             var marker = L.marker([latitude, longitude]);
                             marker.bindPopup(content);
                             marker.addTo(map);
